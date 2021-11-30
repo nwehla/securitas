@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Entity;
+use App\Security\User;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateursRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
-use App\Repository\UtilisateursRepository;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateursRepository::class)
  * @UniqueEntity("email",message="veuillez choisir une autre adresse mail ,celle-ci est déja utlisée !")
  * @UniqueEntity("login",message="veuillez choisir un autre login,celui-ci est déja utlisé !")
  */
-class Utilisateurs
+class Utilisateurs extends User
 {
     /**
      * @ORM\Id
@@ -27,6 +27,21 @@ class Utilisateurs
      */
     private $nom;
 
+
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+     protected $email;
+
+
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    protected $password;
+        
     /**
      * @ORM\Column(type="string", length=255)
     * 
@@ -50,25 +65,20 @@ class Utilisateurs
     private $login;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
      */
-    private $motdepasse;
 
+    protected $roles = [];
+
+
+   
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $adresse;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-    */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $role;
-
+    
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -134,18 +144,7 @@ class Utilisateurs
         return $this;
     }
 
-    public function getMotdepasse(): ?string
-    {
-        return $this->motdepasse;
-    }
-
-    public function setMotdepasse(string $motdepasse): self
-    {
-        $this->motdepasse = $motdepasse;
-
-        return $this;
-    }
-
+    
     public function getAdresse(): ?string
     {
         return $this->adresse;
@@ -158,28 +157,10 @@ class Utilisateurs
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+    
 
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
+    
 
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
+    
 
    }

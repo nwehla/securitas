@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class UtilisateurType extends AbstractType
@@ -25,14 +26,11 @@ class UtilisateurType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('login',TextType::class)
-            ->add('motdepasse',TextType::class)
+            ->add('password',PasswordType::class)
             ->add('adresse',TextType::class)
             ->add('email',EmailType::class,["attr"=>[
                 "placeholder"=>"entrez un email valide"
             ]])
-            ->add('role',ChoiceType::class , [
-                "choices" =>["proprietaire"=>"proprietaire","locataire"=>"locataire","administrateur"=>"administrateur","gestionnaire"=>"administrateur"]
-            ])
             ->add('envoyer',SubmitType::class)
         ;
     }
