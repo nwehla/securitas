@@ -11,8 +11,9 @@ use App\Repository\AuteursRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
-     /**
+/**
      * @Route("/auteur")
      */
      class AuteursController extends AbstractController
@@ -31,22 +32,48 @@ use Symfony\Component\Routing\Annotation\Route;
     /**
          *@Route("/formulaire",name="aut_formulaire")
          */
-        public function formulaire( Request $request,EntityManagerInterFace $manager):Response
+        public function formulaire( Request $request,EntityManagerInterFace $manager,UserPasswordEncoder $encoder):Response
         {
             $auteurs= new Auteurs();
             $form=$this->createForm(AuteursType::class);
             $form->handleRequest($request);
             if($form->isSubmitted()&&$form->isValid()){
-                $auteur=$form->getData();
-                $manager->persist($auteur);
+                $passwordCrypte=$encoder->encodePassword($auteurs,$auteurs->getPassword());
+                $auteurs->setPassword($passwordCrypte);
+                $auteurs=$form->getData();
+                $manager->persist($auteurs);
                 $manager->flush();
     
                 return $this->redirectToRoute('affi_auteur',[
-                    'id'=>$auteur->getId(),
+                    'id'=>$auteurs->getId(),
                 ]);
     
             }
             return $this->render('auteurs/formulaire.html.twig', [
+                
+                'form'=>$form->createView(),
+            ]);
+        }
+    
+    /**
+         *@Route("/connection",name="aut_connection")
+         */
+        public function connecter( Request $request,EntityManagerInterFace $manager,UserPasswordEncoder $encoder):Response
+        {
+            $auteurs= new Auteurs();
+            $form=$this->createForm(AuteursType::class);
+            $form->handleRequest($request);
+            if($form->isSubmitted()&&$form->isValid()){
+                $passwordCrypte=$encoder->encodePassword($auteurs,$auteurs->getPassword());
+                $auteurs->setPassword($passwordCrypte);
+                $auteurs=$form->getData();
+                $manager->persist($auteurs);
+                $manager->flush();
+    
+                
+    
+            }
+            return $this->render('auteurs/connection.html.twig', [
                 
                 'form'=>$form->createView(),
             ]);
