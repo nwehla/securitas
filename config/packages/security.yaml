@@ -13,8 +13,13 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
-            id: App\Security\UserProvider
+        # app_user_provider:
+        #     id: App\Security\UserProvider
+
+         in database:
+            entity:
+                class: App\Entity\Auteurs
+                property: username   
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -23,14 +28,20 @@ security:
             security: false
         main:
             anonymous: lazy
-            provider: app_user_provider
+            # provider: app_user_provider
+            provider: in database
+            form_login:
+                login_path: aut_connection
+                check_path: aut_connection
+
+                                    
             guard:
                 authenticators:
                     - App\Security\UtilisateursAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

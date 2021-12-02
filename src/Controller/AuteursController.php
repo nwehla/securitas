@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
      * @Route("/auteur")
@@ -32,7 +33,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
     /**
          *@Route("/formulaire",name="aut_formulaire")
          */
-        public function formulaire( Request $request,EntityManagerInterFace $manager,UserPasswordEncoder $encoder):Response
+        public function formulaire( Request $request,EntityManagerInterFace $manager,UserPasswordEncoderInterface $encoder):Response
         {
             $auteurs= new Auteurs();
             $form=$this->createForm(AuteursType::class);
@@ -58,25 +59,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
     /**
          *@Route("/connection",name="aut_connection")
          */
-        public function connecter( Request $request,EntityManagerInterFace $manager,UserPasswordEncoder $encoder):Response
+        public function connecter( ):Response
         {
-            $auteurs= new Auteurs();
-            $form=$this->createForm(AuteursType::class);
-            $form->handleRequest($request);
-            if($form->isSubmitted()&&$form->isValid()){
-                $passwordCrypte=$encoder->encodePassword($auteurs,$auteurs->getPassword());
-                $auteurs->setPassword($passwordCrypte);
-                $auteurs=$form->getData();
-                $manager->persist($auteurs);
-                $manager->flush();
-    
-                
-    
-            }
-            return $this->render('auteurs/connection.html.twig', [
-                
-                'form'=>$form->createView(),
-            ]);
+
+            return $this->render('auteurs/connection.html.twig') ;
         }
     
     /**

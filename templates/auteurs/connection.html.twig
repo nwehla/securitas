@@ -3,12 +3,22 @@
 {% block body %}
 <div class="navbar">
     {% include "menu_biblio_admin.html.twig" %}
+</div>
+<div class="form-group">
+    <form action="{{path('aut_connection')}}" method="post">
 
-</div>
-<div class="form-control border border-5 width=5% border-dark rounded-pill bg-info">
-    {{ form(form) }}
-</div>
+        <label >Login:</label>
+        <input  type="text" required name="_username" class="form-control">
     
+        <label >Mot de passe:</label>
+        <input  type="password" required name="_password" class="form-control">
+
+        <input type="submit" class="btn btn-primary "value="S'identifier">
+    
+    </form>
+        
+</div>
+
   
 
 
