@@ -59,7 +59,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
     /**
          *@Route("/connection",name="aut_connection")
          */
-        public function connecter( ):Response
+        public function connecter():Response
         {
 
             return $this->render('auteurs/connection.html.twig') ;

@@ -157,10 +157,4 @@ class Utilisateurs extends User
         return $this;
     }
 
-    
-
-    
-
-    
-
    }

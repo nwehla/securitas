@@ -48,8 +48,20 @@
       <td> {{ut.photo}}
       </td>
 
-      <td> {{ut.email}}
+      <td> 
+      
+      {{ut.email}}
       </td>
+      
+      <td> 
+
+      {% for ro in ut.roles %}
+      {{ ro }}
+
+      {% endfor %}
+
+      </td>
+
       <td class="bg-outline-success">
         <a href="{{ path('uti_affiche', {'id':ut.id})}}">Cliquez ICI !</a>
       </td>
