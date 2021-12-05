@@ -84,7 +84,7 @@ class UtilisateurController extends AbstractController
         /**
          *@Route("/{id}/supprimer",name="suppr_utilisateur")
          */
-        public function supprimerer(Request $request,EntityManagerInterface $manager,Utilisateurs  $utilisateurs):Response
+        public function supprimer(Request $request,EntityManagerInterface $manager,Utilisateurs  $utilisateurs):Response
         {       $manager->remove($utilisateurs);
                 $manager->flush();
                 return $this->redirectToRoute('utilisateur');

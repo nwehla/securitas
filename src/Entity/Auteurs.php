@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=AuteursRepository::class)
  * @UniqueEntity(
- * fields={"username"},message="Le User existe déja")
+ * fields={"username"},message="Le login existe déja")
  */
 class Auteurs implements UserInterface
 {

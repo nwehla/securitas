@@ -11,7 +11,6 @@ use App\Repository\AuteursRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -45,9 +44,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
                 $manager->persist($auteurs);
                 $manager->flush();
     
-                return $this->redirectToRoute('affi_auteur',[
-                    'id'=>$auteurs->getId(),
-                ]);
+                return $this->redirectToRoute('aut_connection'
+                );
     
             }
             return $this->render('auteurs/formulaire.html.twig', [
@@ -99,5 +97,22 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
             'form'=>$form->createView(),
         ]);
     }
-}     
+ 
+    /**
+     * @Route("/{id}/delete", name="auteur_delete",methods={"delete"})
+     */
+     public function delete(Request $request,EntityManagerInterface $manager,Auteurs  $auteur):Response{
+    
+if($this->isCsrfTokenValid("SUP".$auteur->getId(),$request->get("_token"))){
+
+        $manager->remove($auteur);
+    $manager->flush();
+    return $this->redirectToRoute('auteur');
+}
+    
+
+}
+
+
+}
 

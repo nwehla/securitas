@@ -29,7 +29,7 @@ class UtilisateurType extends AbstractType
                        "Utilisateur" => "ROLE_USER",
                        "Admin" => "ROLE_ADMIN",
                    ],
-                   "expanded" => true,
+                   //"expanded" => true,
                    "multiple" => true
              ])
             ->add('datedenaissance',DateType::class, [

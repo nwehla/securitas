@@ -1,25 +1,26 @@
 security:
     encoders:
         App\Security\User:
-            algorithm: auto
-        App\Entity\User:
-            algorithm: auto
-
+            algorithm: auto          
+        App\Entity\Utilisateurs:
+            algorithm: auto        
         App\Entity\Auteurs:
             algorithm: auto
-
-
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        # app_user_provider:
-        #     id: App\Security\UserProvider
-
-         in database:
+        app_user_provider:
             entity:
-                class: App\Entity\Auteurs
-                property: username   
+                class: App\Entity\Utilisateurs
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
+            # id: App\Security\UserProvider
+
+        #  in database:
+        #     entity:
+        #         class: App\Entity\Auteurs
+        #         property: username   
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -28,20 +29,21 @@ security:
             security: false
         main:
             anonymous: lazy
-            # provider: app_user_provider
-            provider: in database
-            form_login:
-                login_path: aut_connection
-                check_path: aut_connection
-
-                                    
+            provider: app_user_provider
+            # provider: in database
+            # form_login:
+            #     login_path: aut_connection
+            #     check_path: aut_connection                                    
+            # guard:
+            #     authenticators:
+            #         - App\Security\UtilisateursAuthenticator
+            logout:
+                path: app_logout
             guard:
                 authenticators:
                     - App\Security\UtilisateursAuthenticator
-            logout:
-                path: app_logout
                 # where to redirect after logout
-                target: app_any_route
+                #target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -51,6 +53,10 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    role_hierarchy: 
+        ROLE_EDITEUR: ROLE_USER
+        ROLE_ADMIN: ROLE_EDITEUR
+        
     access_control:
         # - { path: ^/, roles: IS_AUTHENTIFICATED_ANONYMOUSLY }
         # - { path: ^/bibliotheque, roles: ROLE_ADMIN }
