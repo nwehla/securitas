@@ -24,12 +24,14 @@ class ArticlesFixtures extends Fixture
             $auteurs = new Auteurs();
             $auteurs->setNom($faker->firstName())
                 ->setPrenom($faker->lastName())
-                ->setMail($faker->sentence());
+                ->setUsername($faker->lastName())
+                ->setPassword(password_hash('mdp', PASSWORD_DEFAULT))
+                ->setMail($faker->email());
             $manager->persist($auteurs);
                 // Mainteannt je cree mes Categories
-            for ($i = 0; $i < 5; $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 $categories = new Categorie();
-                $categories->setTitre($faker->sentence())
+                $categories->setTitre($faker->company())
                     ->setResume($faker->sentence());
 
                 $manager->persist($categories);
@@ -51,12 +53,12 @@ class ArticlesFixtures extends Fixture
 
                              //je mets des commentaires
 
-                for($l=0;$l<6;$l++)
+                for($l=0;$l<5;$l++)
            {
                 $commentaires=new Commentaires();
 
                 $commentaires->setAuteur($faker->lastName())
-                             ->setMail($faker->sentence())
+                             ->setMail($faker->email())
                              ->setDate(new \Datetime)
                              ->setCommentaire($faker->sentence())
                              ->setArticle($articles);

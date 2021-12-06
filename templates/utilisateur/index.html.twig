@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Les utilisateurs {% endblock %}
+
 {% block montitre %}Liste des Utilisateurs {% endblock %}
 
 
+
 {% block body %}
+{% include "menu_biblio_admin.html.twig" %}
 
 <div class="row btn btn-outline-warning">
       
@@ -77,6 +80,10 @@
     </tr>
   </tbody>
 </table>
+<div>
+<h3> Nombre total des Utilisateurs : {{ nbutilisateurs }}
+</h3>
+</div>
 
 
     {% endblock body %}

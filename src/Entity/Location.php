@@ -66,7 +66,7 @@ class Location
     private $status;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean")
      */
     private $accessibility;
 

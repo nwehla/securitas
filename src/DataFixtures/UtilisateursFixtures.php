@@ -1,15 +1,21 @@
 <?php
 
 namespace App\DataFixtures;
-use App\Entity\Utilisateurs;
+
+
 use DateTime;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+//use Faker\Factory;
+use App\Entity\Utilisateurs;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Faker;
 
 class UtilisateursFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+      $faker= Faker\Factory::create('fr_FR');
+
         for ($i=0; $i<20 ; $i++ ) 
       { 
           $utilisateurs = new Utilisateurs();
@@ -22,13 +28,13 @@ class UtilisateursFixtures extends Fixture
           
           $utilisateurs->setNom($nom[0])
                   ->setPrenom($prenom[0])   
-                  ->setPhoto("PhotoUtilisateur N° $i ")  
+                  ->setPhoto($faker->imageUrl())  
                   ->setDatedenaissance( new DateTime())    
-                  ->setLogin("login N° $i ")    
-                  ->setAdresse("adresse utilisateurN° $i ")    
-                  ->setEmail("adresse mail@N°$i ")    
-                  ->setMotdepasse("motdepasseN° $i ") 
-                  ->setRole($rol[0]); 
+                  ->setLogin($faker->sentence())    
+                  ->setAdresse($faker->address())    
+                  ->setEmail($faker->email())    
+                  ->setPassword(password_hash('mdp', PASSWORD_DEFAULT));
+                  //   ->setRoles($rol); 
                    
           $manager->persist($utilisateurs);
       }

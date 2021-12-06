@@ -29,6 +29,7 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/index.html.twig', [
             'controller_name' => 'UtilisateurController',
             "utilisateurs" => $utilisateurs,
+            "nbutilisateurs"=> count($utilisateurs),
         ]);
     }
     /**

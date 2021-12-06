@@ -3,6 +3,8 @@
 {% block title %}Les utilisateurs{% endblock %}
 
 {% block body %}
+{% include "menu_biblio_admin.html.twig" %}
+
 <div>{% block montitre %} information sur l'utilisateur {% endblock %}
 </div>
 <div class="row bg-success light border">
@@ -51,4 +53,8 @@
     </tr>
   </tbody>
 </table>
+<div>
+<h3>Nombre des utilisateurs : {{nbutilisateurs}}
+</h3>
+</div>
 {% endblock %}
