@@ -121,6 +121,33 @@ class ArticleController extends AbstractController
            'articles' => $articles,
        ]);
     }
+
+    
+    /**
+     * Ceci est 1 exmple 
+     * Affiche en details d'un article
+     * @param $id
+     * @param ArticlesRepository, $articlesrepo 
+     * @Route("/{id}", name="article_id", methods={"GET"})
+    */
+    public function affichage($id, ArticlesRepository $articlesrepo  ) 
+    {
+        // Appel à Doctrine & au repository
+//$articlesrepo = $this->getDoctrine()->getRepository(Articles::class);
+        //Recherche d'un article avec son identifaint
+        $article = $articlesrepo->find($id);
+        // Passage à Twig de tableau avec des variables à utiliser
+       
+               if (!$article) {
+            // throw $this->createNotFoundException(
+                return $this->render("article/article2.html.twig"); 
+        
+           
+        }
+        return $this->render('article/affichage.html.twig', [
+            'articles' => $article
+        ]);
+}
     
     
 
