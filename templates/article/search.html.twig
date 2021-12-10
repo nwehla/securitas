@@ -4,10 +4,7 @@
 
 <div class="row btn btn-outline-warning">
   <h1><a class="nav-link " href="{{path('ajouter_article_form')}}">Ajouter un nouvel Article !</a>
-</div>
 
-<div class="row btn btn-outline-warning">
-  <h1><a class="nav-link " href="{{path('search')}}">findBy !</a>
 </div>
 
     <table class="table table-striped bordored-radius=2px text-center ">
@@ -25,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-        {% for article in articles %}
+        {% for article in article %}
         <tr>
         <td>
           {{article.id}}

@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Controller;
-use Doctrine\ORM\EntityManagerInterface;
-
-
 use App\Entity\Utilisateurs;
-use App\Form\UtilisateurType;
-use Symfony\Component\HttpFoundation\Request;
 
+
+use App\Form\UtilisateurType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilsateursRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use App\Repository\UtilisateursRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/utilisateur")
@@ -32,6 +33,27 @@ class UtilisateurController extends AbstractController
             "nbutilisateurs"=> count($utilisateurs),
         ]);
     }
+/**
+     * @Route("/utilisateurs2", name="utilisateurs_index", methods={"GET"})
+     */
+    public function usersByCivilité(UtilisateursRepository $utilisateursRepository): Response
+    {
+         $utilisateurs= $utilisateursRepository->findByArticlesCivilites();
+         return $this->render('utilisateur/index.html.twig', [
+            'utilisateurs' => $utilisateurs,
+        ]);
+    }
+    /**
+     * @Route("/status" ,name="utilisateur_status",methods={"GET"})
+     */
+    public function usersByStatus(UtilisateursRepository $utilisateursRepository): Response
+    {
+         $utilisateurs= $utilisateursRepository->findByUtilisateursStatus();
+         return $this->render('utilisateur/recherche.html.twig', [
+            'utilisateurs' => $utilisateurs,
+        ]);
+    }
+
     /**
      * @Route("/form" , name="form_uti")
      */

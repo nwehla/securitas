@@ -64,6 +64,16 @@ class Utilisateurs implements UserInterface
      */
     private $photo;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $civilite;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -213,6 +223,30 @@ class Utilisateurs implements UserInterface
     public function setPhoto(string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getCivilite(): ?string
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(string $civilite): self
+    {
+        $this->civilite = $civilite;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

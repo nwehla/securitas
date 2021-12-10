@@ -16,15 +16,21 @@ class UtilisateursFixtures extends Fixture
     {
       $faker= Faker\Factory::create('fr_FR');
 
-        for ($i=0; $i<20 ; $i++ ) 
+        for ($i=0; $i<100 ; $i++ ) 
       { 
           $utilisateurs = new Utilisateurs();
           $nom=["Moussa","Ndao","Nwehla","Michot","Balouka","Follereau"];
           $prenom=["Konate","Modou","Valery","Frederique","Roger","Fabrice"];
            $rol=array('locataire','propriétaire','gestionnaire','administrateur');
-          shuffle($rol);
+           $civ=array('Homme','Femme');
+           $sta=array('Publié','Dépublié','Archivé');
+          
+           shuffle($rol);
           shuffle($nom);
           shuffle($prenom);
+          shuffle($civ);
+          shuffle($sta);
+
           
           $utilisateurs->setNom($nom[0])
                   ->setPrenom($prenom[0])   
@@ -33,6 +39,8 @@ class UtilisateursFixtures extends Fixture
                   ->setLogin($faker->sentence())    
                   ->setAdresse($faker->address())    
                   ->setEmail($faker->email())    
+                  ->setCivilite($civ[0])    
+                  ->setStatus($sta[0])    
                   ->setPassword(password_hash('mdp', PASSWORD_DEFAULT));
                   //   ->setRoles($rol); 
                    

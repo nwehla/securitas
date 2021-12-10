@@ -122,6 +122,28 @@ class ArticleController extends AbstractController
        ]);
     }
 
+
+     /**
+     * Ceci est 1 exmple 
+     * Affiche en details d'un Auteur
+     * @param $id
+     * @param ArticlesRepository, $auteursrepo 
+     * @Route("/recherche", name="search", methods={"GET"})
+    */
+    public function recherche(ArticlesRepository $articleRepo  ){
+
+        $article =  $articleRepo->findBy (array 
+        (
+            'titre' => 'Est aliquid eveniet et et occaecati. ',
+        ), array ('categorie'=>"DESC"), 1,0);
+
+        return $this->render('article/search.html.twig', [
+            'article' => $article,
+            dump('artilce'),
+        ]);
+    }
+
+
     
     /**
      * Ceci est 1 exmple 

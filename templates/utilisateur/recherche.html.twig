@@ -19,10 +19,13 @@
   <table class="table table-striped bordored-radius=2px text-center ">
     <thead class="table-danger">
         <tr>
-      <th >Civilite</th>  
+      <th >id</th>
       <th >Nom</th>
       <th >Prenom</th>  
+      <th >Civilite</th>  
       <th >Adresse</th>  
+      <th >Mot de Passe</th>
+      <th >Login</th>
       <th >Photo</th>
       <th >Email</th> 
       <th >Role</th> 
@@ -35,33 +38,30 @@
   <tbody>
   {% for ut in utilisateurs %}
     <tr>
-      <td class="row"> {{ut.civilite}}
-      </td>
+      <th scope="row"> {{ut.id}}
+      </th>
       <td> {{ut.nom}}
       </td>
       <td> {{ut.prenom}}
       </td>
-      
+      </td>
+      <td> {{ut.civilite}}
+      </td>
       <td> {{ut.adresse}}
       </td>
-      <td> {{ut.photo}}
+      </td>
+      </td>
       </td>
 
       <td> 
-      {{ut.email}}
       </td>
-     
+      <td> 
+      </td>
       
       <td> 
 
-      {% for ro in ut.roles %}
-      {{ ro }}
 
-      {% endfor %}
 
-      </td>
-       <td> 
-      {{ut.Status}}
       </td>
 
       <td class="bg-outline-success">
@@ -80,7 +80,6 @@
   </tbody>
 </table>
 <div>
-<h3> Nombre total des Utilisateurs : {{ nbutilisateurs }}
 </h3>
 </div>
 

@@ -36,6 +36,32 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
         $this->_em->flush();
     }
 
+    public function findByArticlesCivilites()
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb
+            ->select('u.id', 'u.civilite', 'u.nom', 'u.prenoms', 'u.adresse')
+            ->where('u.civilite =:civilite ')
+            ->setParameter('civilite', 'Homme')
+            ->orderBy('u.nom', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+    public function findByUtilisateursStatus()
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb
+            ->select('u.id', 'u.civilite', 'u.nom', 'u.prenom', 'u.adresse')
+            ->where('u.status =:status ')
+            ->setParameter('status', 'Archivé')
+            ->orderBy('u.nom', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
     // /**
     //  * @return Utilisateurs[] Returns an array of Utilisateurs objects
     //  */
