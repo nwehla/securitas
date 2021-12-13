@@ -2,33 +2,23 @@
 
 {% block title %} Les utilisateurs {% endblock %}
 
-{% block montitre %}Liste des Utilisateurs {% endblock %}
+{% block montitre %}Liste des Utilisateurs par status archivé {% endblock %}
 
 
 
 {% block body %}
 {% include "menu_biblio_admin.html.twig" %}
 
-<div class="row btn btn-outline-warning">
-      
-  <h1><a class="nav-link "href="{{path('form_uti')}}">Ajouter un utitlisateur</a></h1>
-    
-</div>
-
   <div>
   <table class="table table-striped bordored-radius=2px text-center ">
     <thead class="table-danger">
         <tr>
-      <th >id</th>
       <th >Nom</th>
       <th >Prenom</th>  
       <th >Civilite</th>  
       <th >Adresse</th>  
-      <th >Mot de Passe</th>
-      <th >Login</th>
       <th >Photo</th>
       <th >Email</th> 
-      <th >Role</th> 
       <th >Status</th> 
       <th >Action </th>
       <th >Editer </th>
@@ -38,8 +28,6 @@
   <tbody>
   {% for ut in utilisateurs %}
     <tr>
-      <th scope="row"> {{ut.id}}
-      </th>
       <td> {{ut.nom}}
       </td>
       <td> {{ut.prenom}}
@@ -49,21 +37,16 @@
       </td>
       <td> {{ut.adresse}}
       </td>
+      <td>
+      {{ut.photo}}
+      </td>
+      <td>
+      {{ut.email}}
+      </td>
+      <td>
+      {{ut.status}}
       </td>
       </td>
-      </td>
-
-      <td> 
-      </td>
-      <td> 
-      </td>
-      
-      <td> 
-
-
-
-      </td>
-
       <td class="bg-outline-success">
         <a href="{{ path('uti_affiche', {'id':ut.id})}}">Cliquez ICI !</a>
       </td>

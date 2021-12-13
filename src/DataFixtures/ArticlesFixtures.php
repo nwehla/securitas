@@ -18,9 +18,13 @@ class ArticlesFixtures extends Fixture
 
     {
         $faker = Faker\Factory::create('fr_FR');
+        $sta=array('Publié','Dépublié','Archivé');
+
 
         // Creer occurence de 5 Auteurs
         for ($k = 0; $k<5; $k++) {
+         
+
             $auteurs = new Auteurs();
             $auteurs->setNom($faker->firstName())
                 ->setPrenom($faker->lastName())
@@ -40,12 +44,15 @@ class ArticlesFixtures extends Fixture
                 // Mainteannt je cree mes Articles
 
                 for ($j = 0; $j < 10; $j++) {
+
+                    shuffle($sta);
                     $articles = new Articles();
 
                     $articles->setTitre($faker->sentence())
                         ->setImages($faker->imageUrl())
                         ->setResume($faker->sentence())
                         ->setContenu($faker->sentence())
+                        ->setStatus($sta[0])
                         ->setDate(new \DateTime())
                         ->setCategorie($categories)
                         ->setAuteurs($auteurs);

@@ -38,7 +38,7 @@ class UtilisateurController extends AbstractController
      */
     public function usersByCivilité(UtilisateursRepository $utilisateursRepository): Response
     {
-         $utilisateurs= $utilisateursRepository->findByArticlesCivilites();
+         $utilisateurs= $utilisateursRepository->findByUtilisateursCivilites();
          return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurs,
         ]);

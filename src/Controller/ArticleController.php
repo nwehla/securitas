@@ -37,6 +37,19 @@ class ArticleController extends AbstractController
         
         ]);
     }
+    
+
+       
+    /**
+     * @Route("/status" ,name="article_status",methods={"GET"})
+     */
+        public function articleParStatus(ArticlesRepository $repo) :Response{
+            $articles = $repo-> findByArticleStatus();
+            return $this->render('article/recherche.html.twig', [
+                'articles' => $articles,
+            ]);
+        }
+    
     /**
      * @Route("/ajouter",name="ajouter_article_form")
      */

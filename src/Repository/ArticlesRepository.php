@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Articles;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\ArticlesRepository as RepositoryArticlesRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -17,6 +18,18 @@ class ArticlesRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Articles::class);
+    }
+    public function findByArticleStatus(){
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+            ->select('a')
+            ->where('a.status =:status ')
+            ->setParameter('status', 'Publié')
+            ->orderBy('a.titre', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    
     }
 
     // /**
