@@ -50,6 +50,36 @@ class ArticleController extends AbstractController
             ]);
         }
     
+    // /**
+    //  * @Route("/categorie" ,name="article_categorie",methods={"GET"})
+    //  */
+    //     public function findByArticlesCategorie(ArticlesRepository $repo) :Response{
+    //         $articles = $repo-> findByArticleStatus();
+    //         return $this->render('article/rechercheCategorie.html.twig', [
+    //             'articles' => $articles,
+    //         ]);
+    //     }
+    
+    /**
+     * @Route("/categorie" ,name="articleduneCategorie",methods={"GET"})
+     */
+        public function findByArticleduneCategorie(ArticlesRepository $repo) :Response{
+            $articles = $repo-> findByArticlesduneCategorie();
+            return $this->render('article/rechercheCategorie.html.twig', [
+                'articles' => $articles,
+            ]);
+        }
+    
+    /**
+     * @Route("/auteur" ,name="articledunAuteur",methods={"GET"})
+     */
+        public function findByArticleAuteur(ArticlesRepository $repo) :Response{
+            $articles = $repo-> findByArticlesduneAuteur();
+            return $this->render('article/rechercheAuteur.html.twig', [
+                'articles' => $articles,
+            ]);
+        }
+    
     /**
      * @Route("/ajouter",name="ajouter_article_form")
      */

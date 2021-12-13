@@ -19,6 +19,8 @@ class ArticlesFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
         $sta=array('Publié','Dépublié','Archivé');
+       $cat=['thriller','policier','ado','bande_dessinee','roman'];
+       $rand=mt_rand(3,5);
 
 
         // Creer occurence de 5 Auteurs
@@ -33,9 +35,10 @@ class ArticlesFixtures extends Fixture
                 ->setMail($faker->email());
             $manager->persist($auteurs);
                 // Mainteannt je cree mes Categories
-            for ($i = 0; $i < 3; $i++) {
+            for ($i = 0; $i < $rand; $i++) {
                 $categories = new Categorie();
-                $categories->setTitre($faker->company())
+                shuffle($cat);
+                $categories->setTitre($cat[0])
                     ->setResume($faker->sentence());
 
                 $manager->persist($categories);

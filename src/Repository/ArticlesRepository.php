@@ -31,6 +31,43 @@ class ArticlesRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     
     }
+    public function findByArticlesCategorie(){
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+            ->select('a')
+            ->where('a.categorie =:categorie ')
+            ->orderBy('a.categorie', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    
+    }
+    public function findByArticlesduneCategorie(){
+        $qb = $this->createQueryBuilder('a');
+
+
+        $qb
+            ->innerjoin('APP\Entity\Categorie', 'c' ,'WITH','c = a.categorie')
+            ->where('c.titre =:titre ')
+            ->setParameter('titre','thriller')
+            ->orderBy('a.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    
+    }
+    public function findByArticlesduneAuteur(){
+        $qb = $this->createQueryBuilder('a');
+
+
+        $qb
+            ->innerjoin('App\Entity\Auteurs', 'o' ,'WITH','o = a.auteurs')
+            ->where('o.nom  like :nom ')
+            ->setParameter('nom','Catherine')
+            ->orderBy('a.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    
+    }
 
     // /**
     //  * @return Articles[] Returns an array of Articles objects

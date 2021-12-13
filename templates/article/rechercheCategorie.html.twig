@@ -1,4 +1,6 @@
 {% extends "base.html.twig" %}
+
+{% block montitre %}Article par categorie{% endblock %}
 {% block body %}
 {% include "menu_biblio_admin.html.twig" %}
 
@@ -6,16 +8,7 @@
   <h1><a class="nav-link " href="{{path('ajouter_article_form')}}">Ajouter un nouvel Article !</a>
 </div>
 <div class="row btn btn-outline-warning">
-  <h1><a class="nav-link " href="{{path('article_status')}}"> Articles publiés !</a>
-</div>
-<div class="row btn btn-outline-warning">
-  <h1><a class="nav-link " href="{{path('articledunAuteur')}}"> Articles d'un Auteur !</a>
-</div>
-<div class="row btn btn-outline-warning">
-  <h1><a class="nav-link " href="{{path('articleduneCategorie')}}"> Articles d'une categorie !</a>
-</div>
-<div class="row btn btn-outline-warning">
-  {# <h1><a class="nav-link " href="{{path('article_categorie')}}"> Articles Categories !</a> #}
+  <h1><a class="nav-link " href="{{path('article')}}">Retour aux Article !</a>
 </div>
 
 <div class="row btn btn-outline-warning">
@@ -25,13 +18,10 @@
     <table class="table table-striped bordored-radius=2px text-center ">
       <thead class="table table-danger">
           <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Resume</th>
+                <th>Titre</th>
                 <th>Categorie</th>
                 <th>Auteur</th>
                 <th>Commentaires</th>
-                <th>Status</th>
                 <th>Action</th>
                 <th>Editer</th>
                 <th>Supprimer</th>
@@ -40,18 +30,12 @@
             <tbody>
         {% for article in articles %}
         <tr>
-        <td>
-          {{article.id}}
-        </td>
-        
+    
         <td>
           {{article.titre}}
         </td>
         
-        <td>
-          {{article.resume}}
-        </td>
-        <td>
+       <td>
           {{article.categorie.titre}}
         </td>
         
@@ -66,9 +50,6 @@
            {% endfor %}
            
 
-        </td>
-        <td>
-        {{article.status}}
         </td>
         
         <td class=" bg-warning">
