@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Bienvenu(s) dans notre Bibliotheque!{% endblock %}
+{% block montitre %} Bienvenue sur la Bibliotheque {% endblock %}
 
 
 {% block body %}
@@ -9,7 +10,7 @@
     <img class="card-img-top" src="..." alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">Utilisateur</h5>
-      <p class="card-text">Bienvenu sur la en Cher utilisateur.</p>
+      <p class="card-text">Bienvenu sur la page utilisateur.</p>
       <a href="{{path('bibi_user')}}" class="btn btn-primary">Se connecter en tant qu'utilisateur</a>
     </div>
   </div>
@@ -17,7 +18,7 @@
     <img class="card-img-top" src="..." alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">Administration</h5>
-      <p class="card-text">Bienvenu sur la en Cher Admistrateur</p>
+      <p class="card-text">Bienvenu sur la page Admistrateur</p>
       <a href="{{path('bibi_administration')}}" class="btn btn-primary">Se connecter en tant qu'administrateur</a>
     </div>
   </div>

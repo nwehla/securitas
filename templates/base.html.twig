@@ -37,15 +37,6 @@
     border-spacing:0;
     background-color:lightcyan;
 }
-body{
- {# background-image:url("{{asset('asset/image/background2.jpg')}}"); #}
- background-color:pink;
-
-  font-family: Arial, Helvetica, sans-serif;
-text-align: center;
-color:black;
-
-}
 
              
 .table th
@@ -70,16 +61,23 @@ color:black;
   font-size: 0.8rem;
 }
 
-body.sidebar-toggled footer.sticky-footer {
-  width: 100%;
-}
 
     </style>
+    <nav>
+    <h1 class="border border-dark  rounded m-2 p-2 text-white bg-primary">{% include "menu.html.twig"%}</h1>
+
+    </nav>
     
-        <h1 class="border border-dark  rounded m-2 p-2 text-white bg-primary">{% include "menu.html.twig"%}
-{% block montitre %}{% endblock %}</h1>
-        {% block body %}
-x        {% endblock %}
+       
+            <h1 class="border border-dark rounded text-white p-2 m-2 text-center bg bg-info">
+                {% block montitre %}{% endblock %}
+            </h1>
+            
+            {% block body %}
+            
+            {% endblock %}
+            
+        
       </body>
     <footer>
       {% block footer %}

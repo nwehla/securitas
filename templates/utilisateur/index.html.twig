@@ -37,7 +37,7 @@
 						</div>
             <div class="col">
                 <div class="card-body">
-<h5 class="class-title">Nom Prenom:
+<h5 class="class-title">
 									{{ut.nom}}
 									{{ut.prenom}}
 								</h5>                    
@@ -59,11 +59,11 @@
 										{{ut.status}}</div>
 								</p>
 								<p class="class-info">
-									<div>Action :<a href="{{ path('uti_affiche', {'id':ut.id})}}">Cliquez ICI !</a>
+									<div><a href="{{ path('uti_affiche', {'id':ut.id})}} " class="btn btn-info">Informations !</a>
 									</div>
-									<div>Modifier :<a href="{{ path('edit_utilisateur', {'id':ut.id})}}">Modifier!</a>
+									<div><a href="{{ path('edit_utilisateur', {'id':ut.id})}} "class="btn btn-warning">Modifier!</a>
 									</div>
-									<div>Supprimer :<a href="{{ path('suppr_utilisateur', {'id':ut.id})}}">Supprimer!</a>
+									<div><a href="{{ path('suppr_utilisateur', {'id':ut.id})}}"class="btn btn-danger">Supprimer!</a>
 									</div>
                     </p>
                 </div>
