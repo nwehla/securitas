@@ -1,93 +1,91 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Les utilisateurs {% endblock %}
+{% block title %}
+	Les utilisateurs
+{% endblock %}
 
-{% block montitre %}Liste des Utilisateurs {% endblock %}
-
+{% block montitre %}Liste des Utilisateurs
+{% endblock %}
 
 
 {% block body %}
-{% include "menu_biblio_admin.html.twig" %}
+	{% include "menu_biblio_admin.html.twig" %}
 
-<div class="row btn btn-outline-warning">
-      
-  <h1><a class="nav-link "href="{{path('form_uti')}}">Ajouter un utitlisateur</a></h1>
-    
+	<div class="row btn btn-outline-warning">
+
+		<h1>
+			<a class="nav-link " href="{{path('form_uti')}}">Ajouter un utitlisateur</a>
+		</h1>
+
+	</div>
+	<div class="row btn btn-outline-warning">
+
+		<h1>
+			<a class="nav-link " href="{{path('utilisateur_status')}}">Afficher les  utitlisateurs par status = Publié</a>
+		</h1>
+
+	</div>
+  <div class="container">
+<div class="row no-gutters">
+{% for ut in utilisateurs %}
+<div class="col-12 col-lg-4 p-1">
+    <div class="card md-3">
+        <div class="row no-gutters align-items-center p-2">
+            	<div class="col col-md-4">
+							photo:
+							{{ut.photo}} 
+						</div>
+            <div class="col">
+                <div class="card-body">
+<h5 class="class-title">Nom Prenom:
+									{{ut.nom}}
+									{{ut.prenom}}
+								</h5>                    
+                <p class="card-text">
+                       <div>Adresse:
+										{{ut.adresse}}
+									</div>
+									<div>Email:
+										{{ut.email}}
+									</div>
+									<div>Civilité:
+										{{ut.civilite}}</div>
+									<div>Role:
+										{% for ro in ut.roles %}
+											{{ ro }}
+										{% endfor %}
+									</div>
+									<div>Status:
+										{{ut.status}}</div>
+								</p>
+								<p class="class-info">
+									<div>Action :<a href="{{ path('uti_affiche', {'id':ut.id})}}">Cliquez ICI !</a>
+									</div>
+									<div>Modifier :<a href="{{ path('edit_utilisateur', {'id':ut.id})}}">Modifier!</a>
+									</div>
+									<div>Supprimer :<a href="{{ path('suppr_utilisateur', {'id':ut.id})}}">Supprimer!</a>
+									</div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="row btn btn-outline-warning">
-      
-  <h1><a class="nav-link "href="{{path('utilisateur_status')}}">Afficher les  utitlisateurs par status = Publié</a></h1>
-    
+
+{% endfor %}
+
 </div>
-
-  <div>
-  <table class="table table-striped bordored-radius=2px text-center ">
-    <thead class="table-danger">
-        <tr>
-      <th >Civilite</th>  
-      <th >Nom</th>
-      <th >Prenom</th>  
-      <th >Adresse</th>  
-      <th >Photo</th>
-      <th >Email</th> 
-      <th >Role</th> 
-      <th >Status</th> 
-      <th >Action </th>
-      <th >Editer </th>
-      <th >Supprimer </th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for ut in utilisateurs %}
-    <tr>
-      <td class="row"> {{ut.civilite}}
-      </td>
-      <td> {{ut.nom}}
-      </td>
-      <td> {{ut.prenom}}
-      </td>
-      
-      <td> {{ut.adresse}}
-      </td>
-      <td> {{ut.photo}}
-      </td>
-
-      <td> 
-      {{ut.email}}
-      </td>
-     
-      
-      <td> 
-
-      {% for ro in ut.roles %}
-      {{ ro }}
-
-      {% endfor %}
-
-      </td>
-       <td> 
-      {{ut.Status}}
-      </td>
-
-      <td class="bg-outline-success">
-        <a href="{{ path('uti_affiche', {'id':ut.id})}}">Cliquez ICI !</a>
-      </td>
-      <td class="bg-outline-info">
-        <a href="{{ path('edit_utilisateur', {'id':ut.id})}}">Modifier!</a>
-      </td>
-      <td class="btn btn-danger ">
-        <a href="{{ path('suppr_utilisateur', {'id':ut.id})}}">Supprimer!</a>
-      </td>
-
-   {% endfor %}
-      
-    </tr>
-  </tbody>
-</table>
-<div>
-<h3> Nombre total des Utilisateurs : {{ nbutilisateurs }}
-</h3>
 </div>
 
 
-    {% endblock body %}
+
+
+	<div>
+		<h3>
+			Nombre total des Utilisateurs :
+			{{ nbutilisateurs }}
+		</h3>
+	</div>
+
+
+{% endblock body %}

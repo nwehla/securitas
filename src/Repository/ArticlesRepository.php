@@ -61,7 +61,7 @@ class ArticlesRepository extends ServiceEntityRepository
 
         $qb
             ->innerjoin('App\Entity\Auteurs', 'o' ,'WITH','o = a.auteurs')
-            ->where('o.nom  like :nom ')
+            ->where('o.nom  like :nom')
             ->setParameter('nom','Catherine')
             ->orderBy('a.id', 'ASC');
 
