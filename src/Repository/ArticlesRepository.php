@@ -69,6 +69,23 @@ class ArticlesRepository extends ServiceEntityRepository
     
     }
 
+    public function articlePublieAuteur(){
+        $qb = $this->createQueryBuilder('a');
+        $qb
+            ->innerjoin('App\Entity\Auteurs', 'o' ,'WITH','o = a.auteurs')
+            ->where('o.nom =:nom')
+            ->setParameter('nom', 'catherine')
+            ->andWhere("a.status=:status")
+            ->setParameter('status','publié')
+            ->groupBy("a.categorie")
+            ->orderBy('o.nom');
+
+        return $qb->getQuery()->getResult();
+    
+
+        
+    }
+
     // /**
     //  * @return Articles[] Returns an array of Articles objects
     //  */

@@ -3,15 +3,16 @@
 namespace App\Controller;
 use App\Entity\Auteurs;
 use App\Entity\Articles;
+use App\Entity\Recherche;
 use App\Form\ArticlesType;
+use App\Form\RechercheType;
 use App\Entity\Commentaires;
 use App\Form\CommentaireType;
-
 use Doctrine\ORM\EntityManager;
 use App\Repository\ArticlesRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
     use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,16 +26,42 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="article")
      */
-    public function index(): Response
+    public function index(Request $request ,ArticlesRepository $repo): Response
     
     {
-        $repo=$this->getDoctrine()->getRepository(Articles::class);
-        $articles=$repo->findAll();
+        $recherche = new Recherche();
+        $form = $this->createForm(RechercheType::class,$recherche);
+        $form->handleRequest($request);
+        $articles = [];
+        if($form->isSubmitted() && $form->isValid()){
+
+            $titre = $recherche->getTitre();
+            if($titre!=""){
+                //faire une recherche
+                $articles = $repo->findBy(["titre"=>$titre]);
+
+            }else{
+                $articles = $repo->findAll();
+            }
+        }
+        
 
         return $this->render('article/index.html.twig', [
             'controller_name' => 'ArticleController',
             "articles"=>$articles,
+            "form"=>$form->createview(),
         
+        ]);
+
+    }
+
+    /**
+     * @Route("/_publie" ,name="CatAuteurPublie",methods={"GET"})
+     */
+    public function articleAuteurPublie(ArticlesRepository $repo) :Response{
+        $articles = $repo->articlePublieAuteur();
+        return $this->render("article/RechercheAuteurPublié.html.twig",[
+            "articles"=> $articles,
         ]);
     }
     
@@ -71,7 +98,7 @@ class ArticleController extends AbstractController
         }
     
     /**
-     * @Route("/auteur" ,name="articledunAuteur",methods={"GET"})
+     * @Route("/Article_auteur" ,name="articledunAuteur",methods={"GET"})
      */
         public function findByArticleAuteur(ArticlesRepository $repo) :Response{
             $articles = $repo-> findByArticlesduneAuteur();
