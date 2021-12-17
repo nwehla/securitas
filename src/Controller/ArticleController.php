@@ -7,11 +7,13 @@ use App\Entity\Recherche;
 use App\Form\ArticlesType;
 use App\Form\RechercheType;
 use App\Entity\Commentaires;
+use App\Entity\RechercheCategorie;
 use App\Form\CommentaireType;
+use App\Form\RechercheCategorieType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\ArticlesRepository;
-
-    use Symfony\Component\HttpFoundation\Request;
+use App\Repository\CategorieRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,11 +28,28 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="article")
      */
-    public function index(Request $request ,ArticlesRepository $repo): Response
+    public function index(Request $request ,ArticlesRepository $repo,CategorieRepository $cate): Response
     
     {
+        $rechercheCategorie = new RechercheCategorie();
+        $formCategorie = $this->createForm(RechercheCategorieType::class);
+        $formCategorie->handleRequest($request);
+        $categorie = [];
+        if($formCategorie->isSubmitted() && $formCategorie->isValid()){
+            $catego = $rechercheCategorie->getCategorie();
+            if($catego!=''){
+                // faire une recherche
+                $categorie = $cate->findBy(["titre"=>$catego]);
+            }else{
+                $categorie = $cate->findAll();
+            }
+
+        }
+
         $recherche = new Recherche();
+
         $form = $this->createForm(RechercheType::class,$recherche);
+
         $form->handleRequest($request);
         $articles = [];
         if($form->isSubmitted() && $form->isValid()){
@@ -50,6 +69,7 @@ class ArticleController extends AbstractController
             'controller_name' => 'ArticleController',
             "articles"=>$articles,
             "form"=>$form->createview(),
+            "formCategorie"=>$formCategorie->createView(),
         
         ]);
 
