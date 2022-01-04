@@ -8,6 +8,7 @@ use App\Form\ArticlesType;
 use App\Form\RechercheType;
 use App\Entity\Commentaires;
 use App\Entity\RechercheCategorie;
+use App\Entity\Categorie;
 use App\Form\CommentaireType;
 use App\Form\RechercheCategorieType;
 use Doctrine\ORM\EntityManager;
@@ -34,12 +35,12 @@ class ArticleController extends AbstractController
         $rechercheCategorie = new RechercheCategorie();
         $formCategorie = $this->createForm(RechercheCategorieType::class);
         $formCategorie->handleRequest($request);
-        $categorie = [];
         if($formCategorie->isSubmitted() && $formCategorie->isValid()){
             $catego = $rechercheCategorie->getCategorie();
+            $categorie = $catego;
             if($catego!=''){
                 // faire une recherche
-                $categorie = $cate->findBy(["titre"=>$catego]);
+                $categorie = $cate->findByArticlesCategorie(["titre"=>$catego]);
             }else{
                 $categorie = $cate->findAll();
             }
@@ -51,7 +52,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(RechercheType::class,$recherche);
 
         $form->handleRequest($request);
-        $articles = [];
+       
         if($form->isSubmitted() && $form->isValid()){
 
             $titre = $recherche->getTitre();
@@ -69,7 +70,8 @@ class ArticleController extends AbstractController
             'controller_name' => 'ArticleController',
             "articles"=>$articles,
             "form"=>$form->createview(),
-            "formCategorie"=>$formCategorie->createView(),
+            // "formCategorie"=>$formCategorie->createView(),
+            // "articles"=>$categorie,
         
         ]);
 
