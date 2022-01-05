@@ -9,6 +9,8 @@ use App\Repository\CategorieRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
@@ -42,6 +44,12 @@ class Categorie
      * @ORM\OneToMany(targetEntity=Articles::class, mappedBy="categorie", orphanRemoval=true)
      */
     private $article;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     * @Gedmo\Slug(fields={"titre"})
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -111,5 +119,17 @@ class Categorie
 // {
 //     return $this->titre;
 // }
+
+public function getSlug(): ?string
+{
+    return $this->slug;
+}
+
+public function setSlug(?string $slug): self
+{
+    $this->slug = $slug;
+
+    return $this;
+}
 
 }

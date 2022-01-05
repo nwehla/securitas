@@ -27,10 +27,12 @@
         <tbody>
 
             <tr>
-                <td>{{ articles.id }}</td>
-                <td>{{ articles.images }}</td>
-                <td>{{ articles.resume }}</td>
-                
+                <td>{{ articles.slug }}</td>
+                <tr>
+                  <th>Photo</th>
+                  <td>{{ articles.imageFile }}</td>
+               <td>{{ articles.resume }}</td>
+              </tr>  
             </tr>
 
         </tbody>

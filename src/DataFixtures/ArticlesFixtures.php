@@ -52,7 +52,6 @@ class ArticlesFixtures extends Fixture
                     $articles = new Articles();
 
                     $articles->setTitre($faker->sentence())
-                        ->setImages($faker->imageUrl())
                         ->setResume($faker->sentence())
                         ->setContenu($faker->sentence())
                         ->setStatus($sta[0])

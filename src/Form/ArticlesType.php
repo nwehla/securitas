@@ -8,6 +8,7 @@ use App\Entity\Categorie;
 use App\Entity\Commentaires;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,7 +24,6 @@ class ArticlesType extends AbstractType
             ->add('contenu')
             ->add('date')
             ->add('resume')
-            ->add('images')          
             ->add("categorie",EntityType::class,[
                 'class'=>Categorie::class,
                 'placeholder'=>'selectionnner une categorie',
@@ -32,6 +32,9 @@ class ArticlesType extends AbstractType
                 /*utiliser un checkbox à choix unique ou multiple
                 'multiple'=>true,
                 'expanded'=>true,*/
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image à inserrer'
             ])
             ->add("auteurs",EntityType::class,[
                 'class'=>Auteurs::class,
@@ -52,6 +55,16 @@ class ArticlesType extends AbstractType
             //     'expanded'=>true,
             //])
         //
+        ->add('status',
+        ChoiceType::class,[
+            'label' => 'statut' ,
+            'choices' => [
+                'Publier' => 'Publier',
+                'Archiver' => 'Archiver',
+                'Dépublier' => 'Dépublier'
+            ] ,
+            'multiple' => false,
+            'expanded' => true,])
             ->add("valider",SubmitType::class)
             
         ;

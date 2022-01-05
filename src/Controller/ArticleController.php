@@ -16,6 +16,7 @@ use App\Repository\ArticlesRepository;
 use App\Repository\CategorieRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use SebastianBergmann\CodeUnit\FunctionUnit;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,56 +27,57 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    /**
-     * @Route("/", name="article")
-     */
-    public function index(Request $request ,ArticlesRepository $repo,CategorieRepository $cate): Response
+    // /**
+    //  * @Route("/", name="article")
+    //  */
+    // public function index(Request $request ,ArticlesRepository $repo,CategorieRepository $cate): Response
     
-    {
-        $rechercheCategorie = new RechercheCategorie();
-        $formCategorie = $this->createForm(RechercheCategorieType::class);
-        $formCategorie->handleRequest($request);
-        if($formCategorie->isSubmitted() && $formCategorie->isValid()){
-            $catego = $rechercheCategorie->getCategorie();
-            $categorie = $catego;
-            if($catego!=''){
-                // faire une recherche
-                $categorie = $cate->findByArticlesCategorie(["titre"=>$catego]);
-            }else{
-                $categorie = $cate->findAll();
-            }
+    // {
 
-        }
+    //     $rechercheCategorie = new RechercheCategorie();
+    //     $formCategorie = $this->createForm(RechercheCategorieType::class);
+    //     $formCategorie->handleRequest($request);
+    //     if($formCategorie->isSubmitted() && $formCategorie->isValid()){
+    //         $catego = $rechercheCategorie->getCategorie();
+    //         $categorie = $catego;
+    //         if($catego!=''){
+    //             // faire une recherche
+    //             $categorie = $cate->findByArticlesCategorie(["titre"=>$catego]);
+    //         }else{
+    //             $categorie = $cate->findAll();
+    //         }
 
-        $recherche = new Recherche();
+    //     }
 
-        $form = $this->createForm(RechercheType::class,$recherche);
+    //     $recherche = new Recherche();
 
-        $form->handleRequest($request);
+    //     $form = $this->createForm(RechercheType::class,$recherche);
+
+    //     $form->handleRequest($request);
        
-        if($form->isSubmitted() && $form->isValid()){
+    //     if($form->isSubmitted() && $form->isValid()){
 
-            $titre = $recherche->getTitre();
-            if($titre!=""){
-                //faire une recherche
-                $articles = $repo->findBy(["titre"=>$titre]);
+    //         $titre = $recherche->getTitre();
+    //         if($titre!=""){
+    //             //faire une recherche
+    //             $articles = $repo->findBy(["titre"=>$titre]);
 
-            }else{
-                $articles = $repo->findAll();
-            }
-        }
+    //         }else{
+    //             $articles = $repo->findAll();
+    //         }
+    //     }
         
 
-        return $this->render('article/index.html.twig', [
-            'controller_name' => 'ArticleController',
-            "articles"=>$articles,
-            "form"=>$form->createview(),
-            // "formCategorie"=>$formCategorie->createView(),
-            // "articles"=>$categorie,
+    //     return $this->render('article/index.html.twig', [
+    //         'controller_name' => 'ArticleController',
+    //         "articles"=>$articles,
+    //         "form"=>$form->createview(),
+    //          "formCategorie"=>$formCategorie->createView(),
+    //          "articles"=>$categorie,
         
-        ]);
+    //     ]);
 
-    }
+    // 
 
     /**
      * @Route("/_publie" ,name="CatAuteurPublie",methods={"GET"})
@@ -83,6 +85,16 @@ class ArticleController extends AbstractController
     public function articleAuteurPublie(ArticlesRepository $repo) :Response{
         $articles = $repo->articlePublieAuteur();
         return $this->render("article/RechercheAuteurPublié.html.twig",[
+            "articles"=> $articles,
+        ]);
+    }
+    
+    /**
+     * @Route("/" ,name="article",methods={"GET"})
+     */
+    public function index(ArticlesRepository $repo) :Response{
+        $articles = $repo->findAll();
+        return $this->render("article/index.html.twig",[
             "articles"=> $articles,
         ]);
     }
@@ -237,31 +249,46 @@ class ArticleController extends AbstractController
 
 
     
+//     /**
+//      * Ceci est 1 exmple 
+//      * Affiche en details d'un article
+//      * @Route("/{slug}", name="article_id", methods={"GET"})
+//     */
+//     public function affichage( /*ArticlesRepository $articlesrepo */ Articles $article ) 
+//     {
+//         // Appel à Doctrine & au repository
+// //$articlesrepo = $this->getDoctrine()->getRepository(Articles::class);
+//         //Recherche d'un article avec son identifaint
+//         //$article = $articlesrepo->find($slug);
+//         // Passage à Twig de tableau avec des variables à utiliser
+       
+//         //        if (!$article) {
+//         //     // throw $this->createNotFoundException(
+//         //         return $this->render("article/article2.html.twig"); 
+                
+        
+           
+//         // }
+//         return $this->render('article/affichage.html.twig', [
+//            //'slug' => $article->getSlug(),
+//             'articles' => $article
+//         ]);
+// }
+    
     /**
      * Ceci est 1 exmple 
      * Affiche en details d'un article
-     * @param $id
-     * @param ArticlesRepository, $articlesrepo 
-     * @Route("/{id}", name="article_id", methods={"GET"})
+     * @Route("/{slug}", name="article_id", methods={"GET"})
     */
-    public function affichage($id, ArticlesRepository $articlesrepo  ) 
+    public function affichage( /*ArticlesRepository $articlesrepo */ Articles $article ) 
     {
-        // Appel à Doctrine & au repository
-//$articlesrepo = $this->getDoctrine()->getRepository(Articles::class);
-        //Recherche d'un article avec son identifaint
-        $article = $articlesrepo->find($id);
-        // Passage à Twig de tableau avec des variables à utiliser
-       
-               if (!$article) {
-            // throw $this->createNotFoundException(
-                return $this->render("article/article2.html.twig"); 
         
-           
-        }
         return $this->render('article/affichage.html.twig', [
+           'slug' => $article->getSlug(),
             'articles' => $article
         ]);
-}
+// }
+    }
     
     
 
@@ -269,7 +296,7 @@ class ArticleController extends AbstractController
      
     //deuxième méthode
     /**
-     * @Route("/{id}", name="art_affichage",methods={"GET","POST"})
+     * @Route("/{slug}", name="art_affichage",methods={"GET","POST"})
      */
     public function montrer(Articles $articles ,EntityManagerInterface $manager,Request $request): Response
     {
@@ -285,12 +312,15 @@ class ArticleController extends AbstractController
 
             // return $this->redirectToRoute('affi_commetaire',[
                 // 'id'=>$commentaire->getId(),
-            // ]);
+                return $this->redirectToRoute('art_affiche',  ['slug' => $articles->getSlug()
+
+            ]);
 
         }
 
         return $this->render('article/affichage.html.twig', [
-             'id' => $articles->getId(),
+            //  'id' => $articles->getId(),
+             'slug' => $articles->getSlug(),
             'articles' => $articles,
             'auteur'=>$articles->getAuteurs(),
                 'form'=>$form->createView(),

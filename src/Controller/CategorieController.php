@@ -54,12 +54,12 @@ class CategorieController extends AbstractController
             ]);
         }
         /**
-         *@Route("/{id}",name="cat_affiche")
+         *@Route("/{slug}",name="cat_affiche")
          */
         public function afficheCategorie(  Categorie $Categorie, Articles $article ):Response
         {
             return $this->render("Categorie/affiche.html.twig",[
-                "id"=>$Categorie->getId(),
+                "slug"=>$Categorie->getslug(),
                 "article"=>$Categorie->getArticle(),
                 "cat"=>$Categorie,
                

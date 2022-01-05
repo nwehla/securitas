@@ -24,7 +24,7 @@
 <div class="row btn btn-outline-warning">
   <h1><a class="nav-link " href="{{path('search')}}">findBy !</a>
 </div
-<div>
+{# <div>
   {{ form_start(form) }}
     {{ form_widget(form) }}
   {{form_end(form) }}
@@ -33,75 +33,63 @@
   {{ form_start(formCategorie) }}
     {{ form_widget(formCategorie) }}
   {{form_end(formCategorie) }}
-</div>
+</div> #}
+    <table class="table">
+      <tr class="table table-primary">
+        <td>Id</td>
+        <td>Title</td>
+        <td>Resume</td>
+        <td>Categorie</td>
+        <td>Imagefile</td>
+        <td>Commentaires</td>
+        <td>Status</td>
+        <td>Action</td>
+        <td>Editer</td>
+        <td>Supprimer</td>
+      </tr>
+      {% for article in articles %}
+      <tr>
+      <td>
+        {{article.id}}
+      </td>
+      
+      <td>
+        {{article.titre}}
+      </td>
+      
+      <td>
+        {{article.resume}}
+      </td>
+      <td>
+        {{article.categorie.titre}}
+      </td>
+        <td>
+          <td><img src="{{ vich_uploader_asset(article, 'imageFile')| imagine_filter('medium') }}" class="img-fluid img-tdumbnail" alt="{{ article.titre }}">        </td>
+      
+        <td>
+         {% for com in article.commentaires %}
+                {{com.commentaire}}
+         {% endfor %}
+         
 
-    <table class="table table-striped bordored-radius=2px text-center ">
-      <thead class="table table-danger">
-          <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Resume</th>
-                <th>Categorie</th>
-                <th>Auteur</th>
-                <th>Commentaires</th>
-                <th>Status</th>
-                <th>Action</th>
-                <th>Editer</th>
-                <th>Supprimer</th>
-              </tr>
-            </thead>
-            <tbody>
-        {% for article in articles %}
-        <tr>
-        <td>
-          {{article.id}}
-        </td>
-        
-        <td>
-          {{article.titre}}
-        </td>
-        
-        <td>
-          {{article.resume}}
-        </td>
-        <td>
-          {{article.categorie.titre}}
-        </td>
-        
-       
-          <td>
-          {{article.auteurs.nom}}
-        </td>
-        
-          <td>
-           {% for com in article.commentaires %}
-                  {{com.commentaire}}
-           {% endfor %}
-           
-
-        </td>
-        <td>
-        {{article.status}}
-        </td>
-        
-        <td class=" bg-warning">
-          <a href="{{ path('article_id',{'id':article.id}) }}">lire l'article !</a>
-        </td>
-        
-        <td >
-          <a class='-warnig'href="{{path('edit_article',{'id':article.id})}}">Modifier!</a>
-        </td>
-        
-        <td class="bg-danger">
-          <a href="{{path('suppr_categorie',{'id':article.id})}}">Supprimer !</a>
-        </td>
-        </tr>
-        
-        
-{% endfor %}
-          
-
-
-        </tbody>
-    </table>
+      </td>
+      <td>
+      {{article.status}}
+      </td>
+      
+      <td class=" bg-warning">
+        <a href="{{ path('article_id',{'slug':article.slug}) }}">lire l'article !</a>
+      </td>
+      
+      <td >
+        <a class='-warnig'href="{{path('edit_article',{'id':article.id})}}">Modifier!</a>
+      </td>
+      
+      <td class="bg-danger">
+        <a href="{{path('suppr_categorie',{'id':article.id})}}">Supprimer !</a>
+      </td>
+  </tr>
+     {% endfor %}
+  </table>
+  
 {% endblock %}

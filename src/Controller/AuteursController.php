@@ -64,13 +64,13 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
         }
     
     /**
-     * @Route("/{id}", name="affi_auteur", methods={"GET"})
+     * @Route("/{slug}", name="affi_auteur", methods={"GET"})
      */
     
         public function afficheauteur(Auteurs $auteur): Response
         {
             return $this->render("auteurs/affiche.html.twig",[
-                "id"=>$auteur->getId(),
+                "slug"=>$auteur->getslug(),
              'article'=>$auteur->getArticle(),
                 'auteur'=>$auteur,
                

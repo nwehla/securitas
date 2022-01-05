@@ -10,6 +10,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass=AuteursRepository::class)
@@ -58,6 +60,12 @@ class Auteurs implements UserInterface
      * @ORM\OneToMany(targetEntity=Articles::class, mappedBy="auteurs")
      */
     private $article;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true ,nullable=true)
+     * @Gedmo\Slug(fields={"nom"})
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -196,6 +204,18 @@ class Auteurs implements UserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
     
