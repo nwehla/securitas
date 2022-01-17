@@ -1,0 +1,22 @@
+la couverture de code c'est l'analyse totale de test de notre application
+
+commment on test:
+1 les etapes pour lancer les tets
+1 php bin/phpunit --coverage-html var/log/test/test_coverage :pour verifier si le coverage driver est installe
+2 si oui allé dans var log et lancer la fichier index
+3 si non
+4 aller dans le wamp bin php la version en coures(php 7.3.21) copier le chemin
+5 aller dans le php ini et coller 
+XDebug]
+;; Only Zend OR (!) XDebug
+zend_extension="C:\wamp64\bin\php\php7.3.21\zend_ext\php_xdebug-2.9.6-7.3-vc15-x86_64.dll" remplacer cette ligne par votre chemin
+;zend_extension_ts="C:\wamp64\bin\php\php7.3.21\zend_ext\php_xdebug-2.9.6-7.3-vc15-x86_64.dll"
+xdebug.remote_enable=1
+xdebug.remote_autostart=1
+xdebug.profiler_enable=0
+xdebug.remote_host=localhost
+xdebug.remote_port=10000
+xdebug.remote_handler=dbgp
+xdebug.default_enable=0
+xdebug.auto_trace=0
+xdebug.coverage_enable=1

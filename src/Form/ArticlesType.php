@@ -7,6 +7,7 @@ use App\Entity\Articles;
 use App\Entity\Categorie;
 use App\Entity\Commentaires;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,10 +22,20 @@ class ArticlesType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('contenu')
-            ->add('date')
-            ->add('resume')
-            ->add("categorie",EntityType::class,[
+            ->add('contenu', 
+            CKEditorType::class, [
+                'label'=> 'Contenu',
+                'attr' => ['placeholder' => 'Contenu '],
+            ])
+        ->add('date')
+            ->add('resume', 
+                CKEditorType::class, [
+                'label'=> 'Resume',
+                'attr' => ['placeholder' => 'Un resumé pour cet article'],
+            ])
+
+
+                    ->add("categorie",EntityType::class,[
                 'class'=>Categorie::class,
                 'placeholder'=>'selectionnner une categorie',
 
@@ -34,7 +45,8 @@ class ArticlesType extends AbstractType
                 'expanded'=>true,*/
             ])
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Image à inserrer'
+                'label' => 'Image à inserrer',
+                
             ])
             ->add("auteurs",EntityType::class,[
                 'class'=>Auteurs::class,

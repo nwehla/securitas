@@ -211,7 +211,7 @@ class ArticleController extends AbstractController
 
        // Ici je fais un enregistrement Manuel, on verra la suite avec le  Formulaire
        $articles->setTitre(" Titre de mon Article");
-       $articles->setImages(" photo de mon Article");
+    //    $articles->setImages(" photo de mon Article");
        $articles->setResume(" Titre de mon Article");
        $articles->setContenu(" Contenu de mon Article Contenu de mon ArticleContenu de mon ArticleContenu de mon ArticleContenu de mon Article");
        

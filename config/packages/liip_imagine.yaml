@@ -21,3 +21,41 @@ liip_imagine:
         thumbnail:
           size: [800, 200]
           mode: outbond
+    carre:
+      quality: 80
+      filters:
+        thumbnail:
+          size: [200, 200]
+          mode: outbond
+
+    rectangle:
+      quality: 70
+      filters:
+        thumbnail:
+          size: [400, 200]
+          mode: outbond
+
+    echelle:
+      quality: 80
+      filters:
+        scale:
+          dim: [300, 300]
+          mode: outbond
+
+    article:
+      quality: 80
+      filters:
+        upscale:
+          min: [800, 400]
+        thumbnail:
+          size: [800, 400]
+          mode: outbound
+
+        # l'image superposée
+        watermark:
+          # chemin vers le fichier
+          image: ../public/assets/logo/guinot.png
+          # Taille relative de l'image
+          size: 1
+          # set the position of the watermark
+          position: center

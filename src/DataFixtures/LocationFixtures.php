@@ -2,12 +2,13 @@
 
 namespace App\DataFixtures;
 
+use Faker;
 use App\Entity\Location;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Faker;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class LocationFixtures extends Fixture
+class LocationFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {$faker = Faker\Factory::create('fr_FR');
@@ -15,7 +16,7 @@ class LocationFixtures extends Fixture
         shuffle($stat);
 
         // Creer occurence de 200 locations
-        for ($k = 0; $k<200; $k++) {
+        for ($k = 0; $k<2000; $k++) {
             $locations= new Location();
             shuffle($stat);
             $locations->setTitre($faker->title())
@@ -31,8 +32,17 @@ class LocationFixtures extends Fixture
 
 
             $manager->persist($locations);
+        }
         
         $manager->flush();
+    } 
+    public static function getGroups(): array
+  {
+     return ['group4'];
+  }     
+
+    
+      
+  
     }
-}
-}
+
